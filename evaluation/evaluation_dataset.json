@@ -1,0 +1,102 @@
+[
+  {
+    "id": "sample_backend_python",
+    "domain": "Backend Python Engineer",
+    "resume_pages": [
+      {
+        "page": 1,
+        "text": "Alex Morgan\nEmail: alex.morgan@example.com | Phone: 555-0142\nSummary: Senior Python Developer with 6 years experience in FastAPI and microservices.\nExperience: Built low-latency REST APIs using FastAPI and PostgreSQL. Integrated Redis for session caching and rate-limiting.\nContainerized backend applications with Docker and deployed to AWS ECS."
+      },
+      {
+        "page": 2,
+        "text": "Education: B.S. in Computer Science, State University.\nSkills: Python, FastAPI, PostgreSQL, Redis, Docker, AWS, Git, Linux.\nProjects: Designed event-driven payment processing pipeline handling 5,000 transactions/minute."
+      }
+    ],
+    "job_description": "We are seeking a Senior Backend Engineer.\nRequirements:\n- 4+ years of Python\n- Production experience with FastAPI\n- Strong relational database experience with PostgreSQL\n- Experience with Docker containers\nPreferred:\n- Redis caching\n- Kubernetes cluster administration\n- GraphQL API design",
+    "ground_truth_skills": {
+      "Python": {"category": "required", "expected_status": "matched"},
+      "FastAPI": {"category": "required", "expected_status": "matched"},
+      "PostgreSQL": {"category": "required", "expected_status": "matched"},
+      "Docker": {"category": "required", "expected_status": "matched"},
+      "Redis": {"category": "preferred", "expected_status": "matched"},
+      "Kubernetes": {"category": "preferred", "expected_status": "missing"},
+      "GraphQL": {"category": "preferred", "expected_status": "missing"}
+    }
+  },
+  {
+    "id": "sample_frontend_react",
+    "domain": "Frontend React Developer",
+    "resume_pages": [
+      {
+        "page": 1,
+        "text": "Jordan Lee\nEmail: jordan.lee@example.com | Phone: 555-0188\nSummary: Frontend Engineer specializing in React, TypeScript, and modern responsive design.\nExperience: Architected web applications in React and TypeScript. Styled UI components with Tailwind CSS.\nManaged complex client state with Redux Toolkit and React Query."
+      }
+    ],
+    "job_description": "Frontend Developer opening.\nRequirements:\n- Strong proficiency in React and TypeScript\n- Experience with Tailwind CSS\n- Unit testing with Jest or Vitest\nPreferred:\n- Next.js SSR experience\n- WebGL / Three.js animations",
+    "ground_truth_skills": {
+      "React": {"category": "required", "expected_status": "matched"},
+      "TypeScript": {"category": "required", "expected_status": "matched"},
+      "Tailwind CSS": {"category": "required", "expected_status": "matched"},
+      "Jest": {"category": "required", "expected_status": "missing"},
+      "Next.js": {"category": "preferred", "expected_status": "missing"},
+      "Three.js": {"category": "preferred", "expected_status": "missing"}
+    }
+  },
+  {
+    "id": "sample_devops_sre",
+    "domain": "DevOps / Infrastructure Engineer",
+    "resume_pages": [
+      {
+        "page": 1,
+        "text": "Taylor Kim\nEmail: taylor.kim@example.com\nSummary: DevOps Engineer with focus on cloud automation and container orchestration.\nExperience: Provisioned AWS infrastructure using Terraform and CloudFormation.\nManaged multi-node Kubernetes clusters and automated CI/CD pipelines with GitHub Actions.\nConfigured monitoring dashboards using Prometheus and Grafana."
+      }
+    ],
+    "job_description": "Staff DevOps Engineer.\nRequirements:\n- Hands-on Kubernetes operations\n- Infrastructure as Code with Terraform\n- Production CI/CD pipelines\n- Linux system administration\nPreferred:\n- Service mesh experience with Istio\n- Go programming",
+    "ground_truth_skills": {
+      "Kubernetes": {"category": "required", "expected_status": "matched"},
+      "Terraform": {"category": "required", "expected_status": "matched"},
+      "CI/CD": {"category": "required", "expected_status": "matched"},
+      "Linux": {"category": "required", "expected_status": "missing"},
+      "Istio": {"category": "preferred", "expected_status": "missing"},
+      "Go": {"category": "preferred", "expected_status": "missing"}
+    }
+  },
+  {
+    "id": "sample_data_engineer",
+    "domain": "Data Engineer",
+    "resume_pages": [
+      {
+        "page": 1,
+        "text": "Sam Chen\nEmail: sam.chen@example.com\nSummary: Data Engineer with expertise in batch and streaming analytics.\nExperience: Built ETL pipelines with Apache Spark and Python. Managed data warehouse models in Snowflake and SQL.\nAutomated DAG orchestrations with Apache Airflow."
+      }
+    ],
+    "job_description": "Data Platform Engineer.\nRequirements:\n- Python and SQL data processing\n- Apache Spark distributed computing\n- Airflow orchestration\nPreferred:\n- Kafka real-time streaming\n- dbt transformation workflows",
+    "ground_truth_skills": {
+      "Python": {"category": "required", "expected_status": "matched"},
+      "SQL": {"category": "required", "expected_status": "matched"},
+      "Apache Spark": {"category": "required", "expected_status": "matched"},
+      "Airflow": {"category": "required", "expected_status": "matched"},
+      "Kafka": {"category": "preferred", "expected_status": "missing"},
+      "dbt": {"category": "preferred", "expected_status": "missing"}
+    }
+  },
+  {
+    "id": "sample_junior_entry",
+    "domain": "Junior Software Engineer",
+    "resume_pages": [
+      {
+        "page": 1,
+        "text": "Casey Riley\nEmail: casey@example.com\nSummary: Recent Computer Science graduate with foundational coursework.\nCoursework & Projects: Built student portal using HTML, CSS, and basic JavaScript. Academic projects in Java."
+      }
+    ],
+    "job_description": "Associate Software Engineer.\nRequirements:\n- Practical JavaScript experience\n- HTML and CSS web fundamentals\n- Relational databases (PostgreSQL or MySQL)\nPreferred:\n- React framework experience\n- Docker basics",
+    "ground_truth_skills": {
+      "JavaScript": {"category": "required", "expected_status": "matched"},
+      "HTML": {"category": "required", "expected_status": "matched"},
+      "CSS": {"category": "required", "expected_status": "matched"},
+      "PostgreSQL": {"category": "required", "expected_status": "missing"},
+      "React": {"category": "preferred", "expected_status": "missing"},
+      "Docker": {"category": "preferred", "expected_status": "missing"}
+    }
+  }
+]
