@@ -1,8 +1,11 @@
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { config } from "../config";
 
 const ResumeAnalyzerPage = () => {
+  const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [jobDescription, setJobDescription] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,7 +30,7 @@ const ResumeAnalyzerPage = () => {
   });
 
   const connectToProgressStream = (sessionId) => {
-    const eventSource = new EventSource(`http://localhost:8000/resume/stream?session_id=${sessionId}`);
+    const eventSource = new EventSource(`${config.apiUrl}/resume/stream?session_id=${sessionId}`);
     eventSource.onmessage = (event) => {
       setProgress(event.data);
       if (event.data === "Completed" || event.data.startsWith("Error")) {
@@ -60,7 +63,7 @@ const ResumeAnalyzerPage = () => {
         formData.append("job_description", jobDescription.trim());
       }
 
-      const response = await fetch("http://localhost:8000/resume/analyze", {
+      const response = await fetch(`${config.apiUrl}/resume/analyze`, {
         method: "POST",
         body: formData,
       });
@@ -548,6 +551,17 @@ const ResumeAnalyzerPage = () => {
                       <p className="text-slate-400">{gap.recommendation}</p>
                     </div>
                   ))}
+                  <motion.button
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    onClick={() => {
+                      const gapSkills = result.job_match.gaps.map(g => g.skill).join(", ");
+                      navigate("/interview", { state: { skillGaps: gapSkills } });
+                    }}
+                    className="w-full mt-4 rounded-xl px-4 py-3 text-sm font-semibold bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/20 hover:brightness-110 transition"
+                  >
+                    Practice Interview Questions for These Gaps
+                  </motion.button>
                 </div>
               ) : (
                 <ul className="space-y-3 text-sm text-slate-300">

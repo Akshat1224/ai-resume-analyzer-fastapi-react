@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import About from "./pages/About";
 import ResumeAnalyzer from "./pages/ResumeAnalyzer";
+import ResumeCompare from "./pages/ResumeCompare";
 import Interview from "./pages/Interview";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<About />} />
           <Route path="/resume" element={<ResumeAnalyzer />} />
+          <Route path="/compare" element={<ResumeCompare />} />
           <Route path="/interview" element={<Interview />} />
         </Route>
       </Routes>

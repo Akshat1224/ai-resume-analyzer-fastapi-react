@@ -106,30 +106,56 @@ async def generate_interview_questions(
     if api_key:
         result = await analyze_resume(prompt, max_tokens=1200)
     else:
-        # Offline heuristic question generator
-        result = {
-            "questions": [
-                {
-                    "question": f"How do you approach designing scalable systems in {role} within the {industry} domain?",
-                    "hints": "Discuss architectural patterns, throughput, and error boundaries.",
-                    "sample_answer": f"In {industry}, I prioritize high availability, modular decoupling, and robust observability.",
-                    "difficulty": effective_difficulty,
-                    "target_skill": skill_gaps[0] if skill_gaps else role,
-                },
-                {
-                    "question": f"When addressing {skill_gaps[0] if skill_gaps else 'production incidents'}, what debugging strategy do you follow?",
-                    "hints": "Mention logging, tracing, reproduction steps, and root-cause analysis.",
-                    "sample_answer": "I examine distributed traces, verify metrics spikes, isolate the regression, and draft an RCA.",
-                    "difficulty": effective_difficulty,
-                    "target_skill": skill_gaps[0] if skill_gaps else "System Design",
-                },
-            ]
-        }
+        # Offline heuristic question generator - respect num_questions
+        base_questions = [
+            {
+                "question": f"How do you approach designing scalable systems in {role} within the {industry} domain?",
+                "hints": "Discuss architectural patterns, throughput, and error boundaries.",
+                "sample_answer": f"In {industry}, I prioritize high availability, modular decoupling, and robust observability.",
+                "difficulty": effective_difficulty,
+                "target_skill": skill_gaps[0] if skill_gaps else role,
+            },
+            {
+                "question": f"When addressing {skill_gaps[0] if skill_gaps else 'production incidents'}, what debugging strategy do you follow?",
+                "hints": "Mention logging, tracing, reproduction steps, and root-cause analysis.",
+                "sample_answer": "I examine distributed traces, verify metrics spikes, isolate the regression, and draft an RCA.",
+                "difficulty": effective_difficulty,
+                "target_skill": skill_gaps[0] if skill_gaps else "System Design",
+            },
+        ]
+        # Generate requested number of questions by cycling through base templates
+        questions = []
+        for i in range(num_questions):
+            base_q = base_questions[i % len(base_questions)]
+            questions.append({
+                **base_q,
+                "question": f"{base_q['question']} (Variation {i + 1})" if i >= len(base_questions) else base_q["question"],
+            })
+        result = {"questions": questions}
 
     elapsed = time.perf_counter() - start
     logger.info(f"[INTERVIEW GENERATOR] Generation completed in {elapsed:.2f}s")
 
+    # Validate and ensure correct number of questions
     if isinstance(result, dict) and "error" not in result:
+        questions = result.get("questions", [])
+        if not isinstance(questions, list):
+            questions = []
+
+        # If LLM returned fewer questions than requested, regenerate missing ones
+        if len(questions) < num_questions:
+            logger.warning(f"[INTERVIEW GENERATOR] LLM returned {len(questions)} questions, requested {num_questions}. Regenerating missing.")
+            missing_count = num_questions - len(questions)
+            for i in range(missing_count):
+                questions.append({
+                    "question": f"Describe a challenging {role} scenario in {industry} you've encountered and how you resolved it.",
+                    "hints": "Focus on problem identification, solution approach, and outcome measurement.",
+                    "sample_answer": "I identified the bottleneck through metrics analysis, implemented a caching layer, and reduced latency by 40%.",
+                    "difficulty": effective_difficulty,
+                    "target_skill": skill_gaps[i % len(skill_gaps)] if skill_gaps else role,
+                })
+
+        result["questions"] = questions[:num_questions]  # Ensure exactly num_questions
         result["session_id"] = session_id
         result["adapted_from_gaps"] = bool(skill_gaps)
         await cache_service.set(cache_key, result, ttl=3600)

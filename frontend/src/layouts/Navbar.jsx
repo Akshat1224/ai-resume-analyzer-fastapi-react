@@ -7,6 +7,7 @@ export default function Navbar() {
   const tabs = [
     { label: "About", path: "/", icon: "ℹ️" },
     { label: "Resume Analyzer", path: "/resume", icon: "📄" },
+    { label: "Compare Versions", path: "/compare", icon: "📊" },
     { label: "Interview", path: "/interview", icon: "🎯" },
   ];
 
@@ -41,7 +42,7 @@ export default function Navbar() {
                   {isActive && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute inset-0 rounded-full bg-linear-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/30"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/30"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.3 }}

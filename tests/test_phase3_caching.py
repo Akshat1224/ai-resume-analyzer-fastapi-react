@@ -103,7 +103,7 @@ def test_redis_failure_fallback_graceful():
 
 def test_evaluation_dataset_scoring_consistency():
     """Evaluation benchmark dataset scores with 0.0 standard deviation across multiple iterations."""
-    dataset = load_dataset("evaluation/evaluation_dataset.json")
+    dataset = load_dataset("../evaluation/evaluation_dataset.json")
     results = evaluate_benchmark(dataset)
 
     assert results["overall"]["total_samples"] == 5
